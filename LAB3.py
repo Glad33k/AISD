@@ -101,7 +101,32 @@ def n_sum_n(n: int, m: int)->list[int]:
 print(n_sum_n(2,5))
 
 #zad5
+def n_sum_r(n: int, m: int)->list[int]:
+    if m>9*n or m==0: return []
+    if n==1:
+        if 0<m < 10: return [m]
+    if n>1:
+        l2=[]
+        for i in range(max(m-9,1),m+1):
+            l=n_sum_r(n-1,i)
+            for x in l:
+                l2.append(x*10+(m-i))
+        return l2
 
+print(n_sum_r(2,6))
+#zad7
+def calculator(t:tuple)->int:
+    if not isinstance(t,tuple):
+        return t
+    left,op,right=t
+    lval = calculator(left)
+    rval = calculator(right)
+    if op=="+":
+        return lval+rval
+    elif op=="-":
+        return lval- rval
+
+print(calculator(((5,"-",4),'-',(5,"+",6))))
 #zad6
 
 def powern(n, m):
