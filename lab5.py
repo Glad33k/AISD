@@ -93,6 +93,113 @@ class LinkedList:
         n.next = None
         return temp.value
 
+class Stack:
+    def __init__(self):
+        self.storage=LinkedList()
+    def __len__(self):
+        if self.storage.head is None:
+            return 0
+        else:
+            curr=self.storage.head
+            licznik=0
+            while curr.next is not None:
+                licznik+=1
+                curr=curr.next
+            return licznik+1
+    def __str__(self):
+        if self.storage.head is None:
+            return ""
+        curr = self.storage.head
+        fiut=""
+        while curr is not None:
+            fiut+=(str)(curr.value) + "\n"
+            curr=curr.next
+        return fiut
+    def push(self,element)->None:
+        wagon=Node(element)
+        if self.storage.head is None:
+            self.storage.head=wagon
+        else:
+            curr=self.storage.head
+            self.storage.head=wagon
+            self.storage.head.next=curr
+    def pop(self):
+        if self.storage.head is None:
+            return None
+        if self.storage.head.next is None:
+            temp=self.storage.head
+            self.storage.head=None
+            return temp.value
+        else:
+            curr=self.storage.head.value
+            self.storage.head=self.storage.head.next
+            return curr
+class Queue:
+    def __init__(self):
+        self.storage=LinkedList()
+    def __len__(self):
+        if self.storage.head is None:
+            return 0
+        else:
+            licznik=0
+            curr=self.storage.head
+            while curr.next is not None:
+                licznik+=1
+                curr=curr.next
+            return licznik+1
+    def __str__(self):
+        siur=""
+        curr=self.storage.head
+        if self.storage.head is None:
+            return ""
+        else:
+
+            while curr.next is not None:
+                siur += (str)(curr.value) + ", "
+                curr = curr.next
+            if (curr.next is None):
+                siur += (str)(curr.value)
+
+
+            return siur
+    def enqueue(self,element):
+        wagon=Node(element)
+        if self.storage.head is None:
+            self.storage.head=wagon
+        else:
+            curr=self.storage.head
+            while curr.next is not None:
+                curr=curr.next
+            curr.next=wagon
+    def peek(self):
+        return self.storage.head.value
+    def dequeue(self):
+        if self.storage.head is None:
+            return ""
+        else:
+            curr=self.storage.head.value
+            self.storage.head=self.storage.head.next
+            return curr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -144,3 +251,33 @@ list_.remove()
 assert list_.remove() == 1
 assert list_.head is None
 assert len(list_) == 0
+
+stack = Stack()
+assert len(stack) == 0
+stack.push(3)
+stack.push(10)
+stack.push(1)
+assert len(stack) == 3
+assert str(stack)=="1\n10\n3\n"
+top_value = stack.pop()
+assert top_value == 1
+assert len(stack) == 2
+stack.pop()
+stack.pop()
+assert len(stack) == 0
+queue = Queue()
+assert len(queue) == 0
+queue.enqueue("klient1")
+queue.enqueue("klient2")
+queue.enqueue("klient3")
+assert str(queue) == "klient1, klient2, klient3"
+assert len(queue) == 3
+assert queue.peek() == "klient1"
+assert len(queue) == 3
+client_first = queue.dequeue()
+assert client_first =="klient1"
+assert str(queue) == "klient2, klient3"
+assert len(queue) == 2
+queue.dequeue()
+queue.dequeue()
+assert len(queue) == 0
